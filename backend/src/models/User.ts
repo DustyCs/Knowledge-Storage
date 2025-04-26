@@ -32,4 +32,4 @@ UserSchema.pre("save", async function (this: mongoose.Document & { email: string
     next();
   });
 
-module.exports = mongoose.model("User", UserSchema);
+export const User = mongoose.model("User", UserSchema);
