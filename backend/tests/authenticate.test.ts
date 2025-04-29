@@ -1,7 +1,25 @@
-// Test user registration and login functionality
-
 import request from 'supertest';
 import app from '../src/server';
+import mongoose from 'mongoose';
+import { User } from '../src/models/User';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+async function createMemoryServer() {
+    const mongoServer = await MongoMemoryServer.create();
+    const mongoUri = mongoServer.getUri();
+    await mongoose.connect(mongoUri);
+}// didnt want to do an arrow function for some reason
+
+beforeAll(createMemoryServer);
+
+afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoose.connection.close();
+});
+
+beforeEach(async () => {
+    await User.deleteMany({});
+});
 
 describe('User Authentication', () => {
     // it('should register a new user', async () => {

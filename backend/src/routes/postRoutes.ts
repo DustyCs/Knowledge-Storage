@@ -10,6 +10,10 @@ require('dotenv').config();
 const router = express.Router();
 
 router.post('/create', authMiddleware, createPost);
+router.put('/update/:id', authMiddleware, updatePost);
+router.get('/get/:id', authMiddleware, getPost);
+router.get('/get', authMiddleware, getAllPost);
+router.delete('/delete/:id', authMiddleware, deletePost);
 
 
 

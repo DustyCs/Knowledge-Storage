@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import db_connect from "./utils/db_connect";
 
 import userRoutes from "./routes/userRoutes";
+import postRoutes from "./routes/postRoutes";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cors());
 // API
 
 app.use("/api/auth", userRoutes)
+app.use("/api/post", postRoutes)
 
 
 db_connect(process.env.MONGODB_URI as string);

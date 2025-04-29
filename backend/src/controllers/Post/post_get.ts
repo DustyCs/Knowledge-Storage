@@ -12,7 +12,7 @@ export const getPost = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = req.user;
         const { id } = req.params;
-        const post = await Post.findById(id);
+        const post = await Post.findById(id, { user_id: userId });
         
         if (!post) {
             res.status(404).json({ error: 'Post not found' });

@@ -12,7 +12,7 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
         const { id } = req.params;
         const { title, content, tags } = req.body;
 
-        const post = await Post.findByIdAndUpdate(id, { title, content, tags });
+        const post = await Post.findByIdAndUpdate(id, { title, content, tags, user_id: req.user }, { new: true });
 
         if (!post) {
             res.status(404).json({ error: 'Post not found' });

@@ -10,3 +10,5 @@ const FollowsSchema = new mongoose.Schema({
         ref: 'User',
     },
 })
+
+export const Follows = mongoose.model('Follows', FollowsSchema)

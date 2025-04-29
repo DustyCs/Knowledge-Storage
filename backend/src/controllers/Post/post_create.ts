@@ -10,7 +10,8 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
     }
     try {
         const { title, content, tags } = req.body;
-        const post = new Post({ title, content, tags });
+        const user_id = req.user
+        const post = new Post({ title, content, user_id, tags });
         await post.save();
         res.json(post);
     } catch (error) {

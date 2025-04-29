@@ -1,6 +1,8 @@
 import request from 'supertest';
 import app from '../../src/server';
 
+beforeAll
+
 describe('Post CRUD', () => {
     it('should create a new post', async() => {
         const response = await request(app)

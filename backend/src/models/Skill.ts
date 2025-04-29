@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const Skill = new mongoose.Schema({
+const SkillSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -10,7 +10,11 @@ const Skill = new mongoose.Schema({
         enum: ['beginner', 'intermediate', 'advanced', 'expert'],
         default: 'beginner',
         required: true,
-    }
+    },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
 })
 
-module.exports = mongoose.model('Skill', Skill)
+export const Skill = mongoose.model('Skill', SkillSchema)

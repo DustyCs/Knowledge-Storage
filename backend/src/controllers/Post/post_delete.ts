@@ -10,11 +10,14 @@ export const deletePost = async (req: Request, res: Response): Promise<void> => 
     }
     try {
         const { id } = req.params;
-        const post = await Post.findByIdAndDelete(id)
+        const user_id = req.user
+
+        // delete post owned by user
+        const post = await Post.findOneAndDelete({ _id: id, user_id });
         
         if (!post) {
             res.status(404).json({ error: 'Post not found' });
-            return;
+            return;+` `
         }
 
         res.json(post);
