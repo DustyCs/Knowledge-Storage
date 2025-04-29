@@ -12,7 +12,7 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles --coverage",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/index.js"

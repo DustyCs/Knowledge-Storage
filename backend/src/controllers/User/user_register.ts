@@ -1,8 +1,6 @@
-import jwt from 'jsonwebtoken';
-import express from 'express';
 import bcrypt from 'bcryptjs';
 import { User } from '../../models/User';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import {Request, Response} from 'express';
 
 const registerUser = async (req: Request, res: Response): Promise<void> => {
@@ -27,8 +25,9 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
             res.json({ message: 'User registered successfully' });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error registering user' });
+            res.status(500).json({ error: `Error registering user, email: ${email}, password: ${password}, username: ${username}` });
         }
     }
 
 export default registerUser
+ 

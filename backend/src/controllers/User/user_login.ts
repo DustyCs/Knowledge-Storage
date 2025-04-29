@@ -12,7 +12,9 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
         const { email, password } = req.body;
 
         try {
-            const user = await User.findOne({ email });
+            const login_email = email.toLowerCase();
+
+            const user = await User.findOne({ login_email });
             if (!user) {
                 res.status(400).json({ msg: 'User not found' });
                 return;
@@ -24,10 +26,16 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
                 return;
             }
 
-            const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '24h' });
-            res.json({
-                token,
-                user: { id: user._id, username: user.username, email: user.email, role: user.role },
+            const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '4h' });
+            res
+            .cookie('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+                sameSite: 'strict',
+                maxAge: 24 * 60 * 60 * 1000, // 1 day
+            })
+            .json({
+                msg: 'User logged in successfully',
             });
         } catch (error) {
             console.error(error);
